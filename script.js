@@ -12,10 +12,12 @@ document.querySelectorAll('.image').forEach((element) => {
 
   element.addEventListener('drop', (e) => {
     e.preventDefault();
-    if (draggedElement !== e.target) {
-      const tempBackground = e.target.style.backgroundImage;
-      e.target.style.backgroundImage = draggedElement.style.backgroundImage;
-      draggedElement.style.backgroundImage = tempBackground;
+    if (draggedElement && draggedElement !== e.target) {
+		const draggedImage = window.getComputedStyle(draggedElement).backgroundImage;
+		const targetImage = window.getComputedStyle(e.target).backgroundImage;
+  
+		draggedElement.style.backgroundImage = targetImage;
+		e.target.style.backgroundImage = draggedImage;
     }
   });
 });
