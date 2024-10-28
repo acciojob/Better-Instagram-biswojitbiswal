@@ -1,7 +1,7 @@
 //your code here
 let draggedElement = null;
 
-document.querySelectorAll('.draggable').forEach((element) => {
+document.querySelectorAll('.image').forEach((element) => {
   element.addEventListener('dragstart', (e) => {
     draggedElement = e.target;
   });
