@@ -5,8 +5,6 @@ document.querySelectorAll('.image').forEach((element) => {
   element.addEventListener('dragstart', (e) => {
     draggedElement = e.target;
     e.dataTransfer.setData('text/plain', draggedElement.id); // Store the ID of the dragged element
-    // Optional: Add a class to show it's being dragged
-    draggedElement.classList.add('selected');
   });
 
   element.addEventListener('dragover', (e) => {
@@ -15,6 +13,7 @@ document.querySelectorAll('.image').forEach((element) => {
 
   element.addEventListener('drop', (e) => {
     e.preventDefault();
+    
     const targetId = e.target.id; // Get the ID of the target element
     const targetElement = document.getElementById(targetId);
 
@@ -23,7 +22,6 @@ document.querySelectorAll('.image').forEach((element) => {
       const draggedImage = window.getComputedStyle(draggedElement).backgroundImage;
       const targetImage = window.getComputedStyle(targetElement).backgroundImage;
 
-      // Set the new background images
       draggedElement.style.backgroundImage = targetImage;
       targetElement.style.backgroundImage = draggedImage;
 
@@ -31,14 +29,13 @@ document.querySelectorAll('.image').forEach((element) => {
       const draggedText = draggedElement.textContent;
       draggedElement.textContent = targetElement.textContent;
       targetElement.textContent = draggedText;
+
+      // Remove 'selected' class from all divs
+      document.querySelectorAll('.image').forEach(div => div.classList.remove('selected'));
+
+      // Add 'selected' class to the newly swapped divs
+      draggedElement.classList.add('selected');
+      targetElement.classList.add('selected');
     }
-
-    // Optional: Remove the selected class after drop
-    draggedElement.classList.remove('selected');
-  });
-
-  element.addEventListener('dragend', () => {
-    // Optional: Remove the selected class when drag ends
-    draggedElement.classList.remove('selected');
   });
 });
